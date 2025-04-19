@@ -19,13 +19,12 @@ public class UserRepository implements EntityRepository<User> {
 
     @Override
     public void save(User entity) {
-        String query = "INSERT INTO users VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO users VALUES (?, ?, ?)";
         try {
             PreparedStatement stmt = this.connection.prepareStatement(query);
             stmt.setString(1, entity.getUuid().toString());
             stmt.setString(2, entity.getName());
             stmt.setString(3, entity.getEmail());
-            stmt.setString(4, entity.getPassword());
             stmt.executeUpdate();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -42,8 +41,7 @@ public class UserRepository implements EntityRepository<User> {
                 return (new User(
                         UUID.fromString(resultSet.getString("uuid")),
                         resultSet.getString("name"),
-                        resultSet.getString("email"),
-                        resultSet.getString("password")
+                        resultSet.getString("email")
                 ));
             }
         } catch (Exception e) {
@@ -64,8 +62,7 @@ public class UserRepository implements EntityRepository<User> {
                 return Optional.of(new User(
                         UUID.fromString(resultSet.getString("uuid")),
                         resultSet.getString("name"),
-                        resultSet.getString("email"),
-                        resultSet.getString("password")
+                        resultSet.getString("email")
                 ));
             }
         } catch (Exception e) {
@@ -87,8 +84,7 @@ public class UserRepository implements EntityRepository<User> {
                 users.add(new User(
                         UUID.fromString(resultSet.getString("uuid")),
                         resultSet.getString("name"),
-                        resultSet.getString("email"),
-                        resultSet.getString("password")
+                        resultSet.getString("email")
                 ));
             }
         } catch (Exception e) {
