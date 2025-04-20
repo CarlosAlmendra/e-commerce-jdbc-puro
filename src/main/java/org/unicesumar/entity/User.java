@@ -10,6 +10,7 @@ public class User extends Entity {
     }
 
     public User(String name, String email) {
+        super(UUID.randomUUID());
         this.name = name;
         this.email = email;
     }
