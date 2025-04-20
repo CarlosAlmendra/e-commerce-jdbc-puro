@@ -7,10 +7,7 @@ import org.unicesumar.util.DatabaseConnection;
 import org.unicesumar.util.DatabaseInitializer;
 
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.*;
 
 import static java.util.Objects.isNull;
 
@@ -30,8 +27,7 @@ public class Main {
 
             boolean running = true;
 
-            Product product = new Product(UUID.randomUUID(), "Hanes Men's Originals T-Shirt", 10);
-            productRepo.save(product);
+            addProducts(productRepo);
 
             while (running) {
                 System.out.println("\n=== Main Menu ===");
@@ -188,6 +184,25 @@ public class Main {
 
         cartItems = null;
         System.out.println("Purchase completed successfully!");
+    }
+
+    public static void addProducts(ProductRepository productRepository) {
+        List<Product> existingProducts = productRepository.findAll();
+        if (!existingProducts.isEmpty()) {
+            return;
+        }
+
+        List<Product> predefinedProducts = Arrays.asList(
+                new Product("Notebook Lenovo Ideapad", 3499.90),
+                new Product("Smartphone Samsung Galaxy S21", 2999.99),
+                new Product("RedDragon Mechanical Keyboard", 249.90),
+                new Product("Mouse Logitech G203", 149.50),
+                new Product("Monitor LG 24'' Full HD", 899.00)
+        );
+
+        for (Product product : predefinedProducts) {
+            productRepository.save(product);
+        }
     }
 
     public static Double getTotalValue(Product product, int quantity) {
