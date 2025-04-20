@@ -30,7 +30,7 @@ public class Main {
 
             boolean running = true;
 
-            Product product = new Product(UUID.randomUUID(), "Coco", 12);
+            Product product = new Product(UUID.randomUUID(), "Hanes Men's Originals T-Shirt", 10);
             productRepo.save(product);
 
             while (running) {
@@ -68,7 +68,6 @@ public class Main {
             }
 
             System.out.println("Exiting system. Goodbye!");
-
         } catch (Exception e) {
             System.err.println("Error during execution: " + e.getMessage());
             e.printStackTrace();
@@ -180,13 +179,14 @@ public class Main {
         System.out.println("User name: " + sale.getUser().getName());
         System.out.println("User email: " + sale.getUser().getEmail());
         System.out.println("Products: ");
-        for(Product product : selectedProduct) {
-            System.out.println("Name: " + product.getName() + " - Price: " + product.getPrice());
+        List<CartItems> cartItems = cartItemsRepo.findAllProductsByCart(sale.getCart().getUuid());
+        for(CartItems cartItem : cartItems) {
+            System.out.println("Name: " + cartItem.getProduct().getName() + " - Price: " + cartItem.getProduct().getPrice() + " - Quantity: " + cartItem.getQuantity());
         }
         System.out.println("Total value: " + sale.getTotalValue());
         paymentProcessor.selectPaymentStrategy(paymentMethod);
 
-
+        cartItems = null;
         System.out.println("Purchase completed successfully!");
     }
 
