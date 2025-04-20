@@ -3,8 +3,8 @@ package org.unicesumar.entity;
 import java.util.UUID;
 
 public class Product extends Entity {
-    private final String name;
-    private final double price;
+    private String name;
+    private double price;
 
     public Product(UUID uuid, String name, double price) {
         super(uuid);
@@ -13,6 +13,7 @@ public class Product extends Entity {
     }
 
     public Product(String name, double price) {
+        super(UUID.randomUUID());
         this.name = name;
         this.price = price;
     }
