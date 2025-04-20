@@ -1,6 +1,5 @@
 package org.unicesumar.repository;
 
-import org.unicesumar.entity.CartItems;
 import org.unicesumar.entity.Sale;
 
 import java.sql.Connection;
@@ -18,13 +17,13 @@ public class SaleRepository implements EntityRepository<Sale> {
     }
 
     public void save(Sale entity) {
-        String productsQuery = "INSERT INTO sale VALUES (?, ?, ?, ?, ?)";
+        String saleQuery = "INSERT INTO sale VALUES (?, ?, ?, ?, ?)";
 
         try {
-            PreparedStatement stmt = this.connection.prepareStatement(productsQuery);
+            PreparedStatement stmt = this.connection.prepareStatement(saleQuery);
             stmt.setString(1, entity.getUuid().toString());
             stmt.setString(2, entity.getUser().getUuid().toString());
-            stmt.setString(2, entity.getCart().getUuid().toString());
+            stmt.setString(3, entity.getCart().getUuid().toString());
             stmt.setDouble(4, entity.getTotalValue());
             stmt.setString(5, entity.getPaymentEnum().toString());
             stmt.executeUpdate();
