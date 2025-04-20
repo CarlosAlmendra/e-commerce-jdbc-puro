@@ -56,4 +56,5 @@ public class Sale extends Entity {
     public void setPaymentEnum(PaymentEnum paymentEnum) {
         this.paymentEnum = paymentEnum;
     }
+
 }

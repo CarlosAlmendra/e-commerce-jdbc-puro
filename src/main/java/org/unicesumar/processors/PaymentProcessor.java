@@ -1,5 +1,6 @@
 package org.unicesumar.processors;
 
+import org.unicesumar.enums.PaymentEnum;
 import org.unicesumar.paymentMethod.BankSlipPayment;
 import org.unicesumar.paymentMethod.CreditCardPayment;
 import org.unicesumar.paymentMethod.PixPayment;
@@ -17,7 +18,7 @@ public class PaymentProcessor {
 
     public PaymentProcessor() {}
 
-    public void selectPaymentStrategy(Integer option, Double value) {
+    public void selectPaymentStrategy(Integer option) {
         PaymentStrategy strategy = paymentStrategyMap.get(option);
 
         if (strategy == null) {
@@ -25,6 +26,10 @@ public class PaymentProcessor {
             return;
         }
 
-        strategy.pay(value);
+        strategy.pay();
+    }
+
+    public PaymentEnum getPaymentStrategyEnum(Integer option) {
+        return paymentStrategyMap.get(option).getEnumType();
     }
 }

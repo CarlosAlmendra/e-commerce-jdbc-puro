@@ -1,7 +1,6 @@
 package org.unicesumar.repository;
 
 import org.unicesumar.entity.Cart;
-import org.unicesumar.entity.CartItems;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
