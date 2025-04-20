@@ -10,18 +10,30 @@ CREATE TABLE IF NOT EXISTS users (
     email TEXT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS sales (
-    id UUID PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS cart (
+    uuid UUID PRIMARY KEY,
     user_id UUID NOT NULL,
-    payment_method TEXT NOT NULL,
-    sale_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(uuid)
 );
 
-CREATE TABLE IF NOT EXISTS sale_products (
-    sale_id UUID NOT NULL,
+CREATE TABLE IF NOT EXISTS cart_items (
+    uuid UUID PRIMARY KEY,
+    user_id UUID NOT NULL,
     product_id UUID NOT NULL,
-    PRIMARY KEY (sale_id, product_id),
-    FOREIGN KEY (sale_id) REFERENCES sales(id),
+    cart_id UUID NOT NULL,
+    quantity NUMERIC NOT NULL,
+    unit_price NUMERIC NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(uuid)
     FOREIGN KEY (product_id) REFERENCES products(uuid)
+    FOREIGN KEY (cart_id) REFERENCES cart(uuid)
+);
+
+CREATE TABLE IF NOT EXISTS sale (
+    uuid UUID PRIMARY KEY,
+    user_id UUID NOT NULL,
+    cart_id UUID NOT NULL,
+    total_value NUMERIC NOT NULL,
+    payment_method TEXT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(uuid),
+    FOREIGN KEY (cart_id) REFERENCES cart(uuid)
 );
