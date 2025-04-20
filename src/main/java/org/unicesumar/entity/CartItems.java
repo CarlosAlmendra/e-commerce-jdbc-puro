@@ -19,12 +19,13 @@ public class CartItems extends Entity {
         this.price = price;
     }
 
-    public CartItems(UUID uuid, User user, Product product, Cart cart, int quantity) {
+    public CartItems(UUID uuid, User user, Product product, Cart cart, int quantity, double price) {
         super(uuid);
         this.user = user;
         this.product = product;
         this.cart = cart;
         this.quantity = quantity;
+        this.price = price;
     }
 
     public void addQuantity(int quantity) {
